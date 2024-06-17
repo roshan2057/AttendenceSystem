@@ -1,0 +1,26 @@
+version: '3'
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'attendence'
+    ports:
+      - "3005:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: 'attendenceDatabase'
+    environment:
+      POSTGRES_DB: attendence
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+        - roshan-volume:/var/lib/postgresql/data
+
+volumes:
+  roshan-volume:

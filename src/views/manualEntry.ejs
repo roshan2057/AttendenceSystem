@@ -1,0 +1,69 @@
+<%- include("./partial/navbar")%>
+
+
+    <%- include('./partial/sidebar');%>
+
+
+
+        <div class="flex flex-col justify-center items-center h-96">
+            <h1 class="text-center text-4xl my-9">Manual Entry</h1>
+
+            <form class="bg-gray-100 rounded-lg px-5" method="post" action="/manual-entry">
+                
+                <div class="my-9">
+                       <h1 class="text-center text-2xl">Select Employee</h1>
+                       <select name="cardId" required
+                       class="w-full rounded-md border border-[#e0e0e0] bg-white py-3.5 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                       <option>Select User</option>
+                       <% user.forEach((p, index) => { %>
+                       <option key="<%= index %>" value="<%= p.cardId %>" >                        
+                           <%= p.name %>
+                       </option>
+                   <% }) %>
+               </select>
+                </div>
+                        <div class="flex gap-3">
+                <div>
+
+                    <h1 class="text-center text-2xl">Select Date</h1>
+
+                    <input type="date" required
+                    id="date-input" name="date"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    placeholder="Enter the date"
+                    max="<?php echo date('Y-m-d'); ?>">
+                </div>
+                <div>
+                    <h1 class="text-center text-2xl">Select Time</h1>
+
+                    <input type="time" step="1" name="time" required
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                        placeholder="Enter the time">
+                </div>
+
+                </div>
+                <div class="my-9">
+                    <input type="submit" value="Entry"
+                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    placeholder="Enter the time">
+                </div>
+
+            </form>
+        
+        </div>
+
+
+
+
+        <script>
+            const dateInput = document.getElementById("date-input");
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, "0");
+            const dd = String(today.getDate()).padStart(2, "0");
+            const maxDate = `${yyyy}-${mm}-${dd}`;
+            dateInput.setAttribute("max", maxDate);
+          </script>
+
+
+        <% include('./partial/footer') %>

@@ -1,0 +1,182 @@
+<%- include("./partial/navbar")%>
+
+
+    <%- include('./partial/sidebar');%>
+
+        <!-- component -->
+        <div class="flex items-center justify-center">
+            <div class="mx-auto w-full max-w-[550px] p-9 rounded-md border border-gray-100 shadow-md">
+
+                <form action="/edit/<%= user.id %>" method="POST">
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Name of the Employee
+                                </label>
+                                <input type="text" name="name" id="name" value="<%= user.name %>"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="card_id" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Card Number
+                                </label>
+                                <input type="number" inputmode="numeric" name="cardId" id="card_id"
+                                    value="<%= user.cardId %>" placeholder="Enter the Card Number" min="0"
+                                    class="appearance-none w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="class" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Position
+                                </label>
+                                <select name="position" id="class"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3.5 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                    <option>Select Position</option>
+                                    <% {position.forEach((p,index)=>{ %>
+
+                                        <option key="<%= index%>" value="<%= p.name %>" <% if(p.name=user.position){%>
+                                            selected <% } %> >
+                                                <%= p.name%>
+                                        </option>
+                                        <% }) } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Email
+                                </label>
+                                <input type="email" name="email" id="email" placeholder="Enter the Email"
+                                    value="<%= user.email %>"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="batch" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Password
+                                </label>
+                                <input type="password" name="password" id="password" placeholder="Enter the password"
+                                    value="<%= user.password %>"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="phone" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Phone Number
+                                </label>
+                                <input type="number" name="phone" id="phone" placeholder="Enter the phone number"
+                                    value="<%= user.phone %>" min="0"
+                                    class="appearance-none w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div>
+
+                        <div class="w-full px-3 sm:w-1/2">
+
+
+                            <div class="mb-5">
+                                <label for="dob" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Date of Birth
+                                </label>
+                                <% const dob=new Date(user.dob); const formated=dob.toISOString().split('T')[0]; %>
+                                    <input type="date" name="dob" id="dob" value="<%= formated %>"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div>
+
+                        <div class="w-full px-3 sm:w-1/2">
+
+                            <div class="mb-5">
+                                <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Gender
+                                </label>
+                                <div class="flex items-center space-x-6">
+                                    <div class="flex items-center mt-3">
+                                        <input type="radio" name="gender" value="male" id="radioButton1"
+                                            <%=user.gender==='male' ? 'checked' : '' %>
+                                        class="h-5 w-5" />
+                                        <label for="radioButton1" class="pl-3  text-base font-medium text-[#07074D]">
+                                            Male
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center mt-3">
+                                        <input type="radio" name="gender" value="female" id="radioButton2"
+                                            <%=user.gender==='female' ? 'checked' : '' %>
+                                        class="h-5 w-5" />
+                                        <label for="radioButton2" class="pl-3 text-base font-medium text-[#07074D]">
+                                            Female
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="mb-5">
+                        <label for="address" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Address
+                        </label>
+                        <input type="text" name="address" id="address" placeholder="Enter the full address"
+                            value="<%= user.address %>"
+                            class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    </div>
+
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="w-full px-3 sm:w-1/2">
+
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="-mx-3 flex justify-center flex-wrap">
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <div class="rounded-md border border-gray-100 bg-white shadow-md">
+                                    <label for="upload" class="flex flex-col items-center gap-2 cursor-pointer">
+                                        <img id="output" width="100">
+                                        <span class="text-gray-600 font-medium">Upload a image</span>
+                                    </label>
+                                    <input type="file" name="image" class="hidden" id="upload"
+                                        onchange="loadFile(event)" accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <div class="mb-3 block text-center mt-5">
+                        <button type="submit"
+                            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            function loadFile(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function () {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
+            }
+        </script>
+
+        <% include('./partial/footer') %>

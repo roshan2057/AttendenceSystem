@@ -1,0 +1,101 @@
+<%- include("./partial/navbar")%>
+  <%- include('./partial/sidebar');%>
+
+
+    <div id="digital-watch" class="text-center text-2xl pb-24"></div>
+
+    <div class="text-gray-600 body-font">
+      <div class="container px-5 mx-auto">
+
+        <div class="flex flex-wrap text-center justify-around">
+          <div class="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer" id="total">
+            <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+              <h2 class="title-font font-medium text-3xl text-gray-900"><%- total.length%></h2>
+              <p class="leading-relaxed">Total Employee</p>
+
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                <%{ total.forEach((key,index)=> {%>
+                  <img src="/avtar/<%= key.profileUrl  %>" alt="" title="<%= key.name %>"
+                    style=" width:50px; height: 50px; object-fit: cover; margin-left: -10px; border-radius: 50%; position: relative;" class="hover:z-50 hover:scale-150" >
+                  <% }) }%>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer" id="present">
+            <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+
+              <h2 class="title-font font-medium text-3xl text-gray-900"><%- present.length %></h2>
+              <p class="leading-relaxed">Present Employee</p>
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                <%{ present.forEach((key,index)=> {%>
+                  <img src="/avtar/<%= key.profileUrl%>" alt="" title="<%= key.name %>"
+                    style=" width:50px; height: 50px; object-fit: cover; margin-left: -10px; border-radius: 50%; position: relative;" class="hover:z-50 hover:scale-150" >
+                  <% }) }%>
+              </div>
+
+            </div>
+          </div>
+          <div class="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer" id="absent">
+            <div class="border-2 border-gray-200 px-4 py-6 rounded-lg ">
+              <h2 class="title-font font-medium text-3xl text-gray-900"><%- absent.length %></h2>
+              <p class="leading-relaxed">Absent Employee</p>
+
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                <%{ absent.forEach((key,index)=> {%>
+                  <img src="/avtar/<%= key.profileUrl%>" alt="" title="<%= key.name %>"
+                    style=" width:50px; height: 50px; object-fit: cover; margin-left: -10px; border-radius: 50%; position: relative;" class="hover:z-50 hover:scale-150" >
+                  <% }) }%>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <script>
+      const total = document.getElementById("total");
+      const absent = document.getElementById("absent");
+      const present = document.getElementById("present");
+
+      total.onclick = function () {
+        window.location.href = '/employee'
+      }
+      // absent.onclick = function () {
+      //   window.location.href = '/home/absent'
+      // }
+      // present.onclick = function () {
+      //   window.location.href = '/home/present'
+      // }
+    </script>
+
+
+
+    <script>
+      function updateDigitalWatch() {
+        const digitalWatch = document.getElementById("digital-watch");
+        const currentDate = new Date();
+
+        // Define the time zone offset for Kathmandu, Nepal (UTC+5:45)
+        const kathmanduOffsetMinutes = 5 * 60 + 45; // 5 hours and 45 minutes
+        const kathmanduOffsetMilliseconds = kathmanduOffsetMinutes * 60 * 1000;
+        const kathmanduTimeMilliseconds = currentDate.getTime() + kathmanduOffsetMilliseconds;
+        const kathmanduTime = new Date(kathmanduTimeMilliseconds);
+
+        const formattedDate = kathmanduTime.toUTCString()
+
+        digitalWatch.textContent = `${formattedDate}`;
+      }
+
+      updateDigitalWatch();
+
+      // Update the time every second
+      setInterval(updateDigitalWatch, 1000);
+    </script>
+
+
+    <% include ('./partial/footer') %>
