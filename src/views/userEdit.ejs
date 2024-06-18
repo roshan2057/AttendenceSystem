@@ -37,10 +37,8 @@
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3.5 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                     <option>Select Position</option>
                                     <% {position.forEach((p,index)=>{ %>
-
-                                        <option key="<%= index%>" value="<%= p.name %>" <% if(p.name=user.position){%>
-                                            selected <% } %> >
-                                                <%= p.name%>
+                                        <option key="<%= index%>" value="<%= p.name %>">
+                                   <%= p.name%>
                                         </option>
                                         <% }) } %>
                                 </select>
@@ -67,7 +65,6 @@
                                     Password
                                 </label>
                                 <input type="password" name="password" id="password" placeholder="Enter the password"
-                                    value="<%= user.password %>"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                         </div>

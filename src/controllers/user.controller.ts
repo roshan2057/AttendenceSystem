@@ -181,8 +181,11 @@ export class UserController {
       req.body.profileUrl = req.file.filename;
     }
     Object.assign(user, req.body);
-    const encryptedPassword = await encrypt.encryptpass(req.body.password);
-    user.password = encryptedPassword;
+    delete user.password;
+    if (req.body.password) {
+      const encryptedPassword = await encrypt.encryptpass(req.body.password);
+      user.password = encryptedPassword;
+    }
     await userRepository.save(user);
     return res.redirect(`/employee/${id}`)
   }
