@@ -8,6 +8,7 @@ import { AttendanceLogEntity } from "../entity/AttendanceLog.entity";
 import { TimeCalculate } from "../helpers/time";
 import { AttendanceService } from "../service/attendance";
 import { ILike } from "typeorm";
+import { DeleteFileService } from "../service/deletefile";
 
 export class UserController {
 
@@ -49,7 +50,6 @@ export class UserController {
     if (req.query.search) {
       condition.name = ILike(`%${req.query.search}%`);
     }
-    console.log(condition)
     const employee = await AppDataSource.getRepository(UserEntity).find({
       where: condition,
       select: ['name', 'profileUrl', 'cardId', 'position', 'phone', 'id'],
@@ -131,7 +131,7 @@ export class UserController {
 
 
   static async renderManualEntry(req: Request, res: Response) {
-    const getUser = await AppDataSource.getRepository(UserEntity).find({ select: ['id', 'name', 'cardId', 'profileUrl'] });
+    const getUser = await AppDataSource.getRepository(UserEntity).find({ where: { role: 'user' }, select: ['id', 'name', 'cardId', 'profileUrl'] });
     res.render("manualEntry", { user: getUser })
   }
 
@@ -176,6 +176,10 @@ export class UserController {
     const user: UserEntity = await userRepository.findOne({
       where: { id },
     });
+    if (req.file) {
+      await DeleteFileService.deleteimage(user.profileUrl ? user.profileUrl : "")
+      req.body.profileUrl = req.file.filename;
+    }
     Object.assign(user, req.body);
     const encryptedPassword = await encrypt.encryptpass(req.body.password);
     user.password = encryptedPassword;
@@ -189,7 +193,9 @@ export class UserController {
     const userlog = await logRepository.findOne({
       where: { user: { id: id } }
     });
-    await logRepository.remove(userlog);
+    if (userlog) {
+      await logRepository.remove(userlog);
+    }
     const userRepository = AppDataSource.getRepository(UserEntity);
     const user = await userRepository.findOne({
       where: { id },

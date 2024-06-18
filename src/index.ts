@@ -30,7 +30,7 @@ app.post("/attendance", deviceAuth, AttendanaceController.attendance);
 
 
 app.get("*", (req: Request, res: Response) => {
-  res.status(505).json({ message: "Bad Request" });
+  res.render("404notFound");
 });
 
 

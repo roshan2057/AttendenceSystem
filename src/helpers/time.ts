@@ -24,14 +24,11 @@ export class TimeCalculate {
         const nepalTime = this.getNepalTime();
 
         let year: number | string = nepalTime.getFullYear();
-        let month: number | string = nepalTime.getMonth() + 1; // Month is zero-based
+        let month: number | string = nepalTime.getMonth() + 1;
         let day: number | string = nepalTime.getDate();
 
-        // Pad single digits with leading zero
         month = month < 10 ? '0' + month : month;
         day = day < 10 ? '0' + day : day;
-
-        console.log('Current date in Kathmandu, Nepal:', year + '-' + month + '-' + day);
         return `${year}-${month}-${day}`;
     }
 }

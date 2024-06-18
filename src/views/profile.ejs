@@ -103,7 +103,7 @@
                   </div>
                 
                   <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Email.</div>
+                    <div class="px-4 py-2 font-semibold">Email</div>
                     <div class="px-4 py-2">
                       <a class="text-blue-800" href="mailto:jane@example.com">
                         <%= data.email %>
@@ -187,7 +187,7 @@
                                 <%= log.date%>
                               </td>
                               <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.time1%>
+                                <%= log.time1?log.time1:"-"%>
                               </td>
                               <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <%= log.time2 ? log.time2 : "-" %>

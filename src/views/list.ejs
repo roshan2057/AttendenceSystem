@@ -54,7 +54,7 @@
                     <a href='/edit?id=<%= key.id %>' class="bg-gray-700 px-3 py-1 text-white rounded-lg">Edit</a>
                     <a href='/delete/<%= key.id %>' class="bg-gray-700 px-3 py-1 text-white rounded-lg"
                       onclick="const nameToDelete = '<%= key.name %>';
-                                const enteredName = prompt(`Enter the ${nameToDelete} to confirm deletion:`);
+                                const enteredName = prompt(`Type '${nameToDelete}' to confirm deletion:`);
                                 if (enteredName === nameToDelete) {
                                   window.location.href = '/delete?id=<%= key.id %>';
                                   return true;

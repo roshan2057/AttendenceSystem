@@ -6,7 +6,9 @@ import upload from "../fileupload/fileupload";
 import { ExcelController } from "../controllers/excel.controller";
 const Router = express.Router();
 
-
+Router.get("/", (req, res) => {
+    res.redirect("/login")
+})
 Router.get("/login", UserController.renderLogin);
 Router.get("/dashboard", authentification, authorization(['admin']), UserController.renderDashboard)
 Router.get("/employee", authentification, authorization(["admin"]), UserController.renderEmployee)
@@ -22,7 +24,7 @@ Router.get("/logout", AuthController.logout)
 Router.post("/login", AuthController.login);
 Router.post("/signup", authentification, authorization(["admin"]), upload.single("image"), UserController.signup);
 Router.post("/manual-entry", authentification, authorization(["admin"]), UserController.ManualEntry)
-Router.post("/edit/:id", authentification, authorization(["admin"]), UserController.updateUser);
+Router.post("/edit/:id", authentification, authorization(["admin"]), upload.single("image"), UserController.updateUser);
 Router.post("/download/user-report", authentification, ExcelController.userReport);
 
 // Router.get("/users",authentification,authorization(["admin"]),UserController.getUsers);

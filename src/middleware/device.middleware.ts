@@ -8,12 +8,12 @@ export const deviceAuth = (
 ) => {
     const { key } = req.body;
     if (!key) {
-        return res.send("key required")
+        return res.json({ name: "key required", message: "Invalid" })
     }
 
     const isValid = encrypt.comparepassword(key, process.env.DEVICE_SECRET);
     if (!isValid) {
-        return res.send("invalid key")
+        return res.json({ name: "key invalid", message: "Invalid" })
     }
     next();
 

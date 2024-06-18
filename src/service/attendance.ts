@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entity/User.entity";
 import { AttendanceLogEntity } from "../entity/AttendanceLog.entity";
@@ -23,6 +22,7 @@ export class AttendanceService {
     const isEmployee = await AppDataSource.getRepository(UserEntity).findOne({ where: { cardId: id.toString() } });
 
     if (!isEmployee) {
+      console.log("not employee")
       return { name: "not an employee", message: "Invalid" };
     }
 
@@ -63,13 +63,11 @@ export class AttendanceService {
         }
       }
       if (Object.keys(data).length === 0) {
-        return { message: "Check the time" };
+        return { name: isEmployee.name, message: "Check the time" };
       }
       const log = new AttendanceLogEntity();
-      log.time1 = time;
-      log.date = date;
       log.user = isEmployee;
-      await AppDataSource.getRepository(AttendanceLogEntity).save(log);
+      await AppDataSource.getRepository(AttendanceLogEntity).save({ user: isEmployee, ...data, date: date });
       return { name: isEmployee.name, message: `Time:${time}` };
 
     }
