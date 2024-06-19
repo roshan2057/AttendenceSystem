@@ -9,6 +9,8 @@ services:
       - "3005:3000"
     depends_on:
       - postgres
+    volumes:
+      - roshan-volume:/app/public/Avtar
 
   postgres:
     build:
@@ -24,3 +26,4 @@ services:
 
 volumes:
   roshan-volume:
+  
