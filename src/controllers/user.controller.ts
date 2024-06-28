@@ -52,7 +52,7 @@ export class UserController {
       },
     });
 
-    const wfhemployee = present.map((index) => ({
+    const wfhemployee = WFH.map((index) => ({
       profileUrl: index.user.profileUrl,
       id: index.user.id,
       name: index.user.name,
