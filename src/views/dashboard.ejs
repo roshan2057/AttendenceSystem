@@ -49,6 +49,20 @@
             </div>
           </div>
 
+          <div class="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer" id="absent">
+            <div class="border-2 border-gray-200 px-4 py-6 rounded-lg ">
+              <h2 class="title-font font-medium text-3xl text-gray-900"><%- WFH.length %></h2>
+              <p class="leading-relaxed">WFH Employee</p>
+
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                <%{ WFH.forEach((key,index)=> {%>
+                  <img src="/avtar/<%= key.profileUrl%>" alt="" title="<%= key.name %>"
+                    style=" width:50px; height: 50px; object-fit: cover; margin-left: -10px; border-radius: 50%; position: relative;" class="hover:z-50 hover:scale-150" >
+                  <% }) }%>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -1,5 +1,21 @@
 </div>
+<script
+  src="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.4.min.js"
+  type="text/javascript"
+></script>
+<script>
+var datepickers = document.querySelectorAll('.nepali-datepicker');
 
+if (datepickers.length === 1) {
+  // Single datepicker case
+  datepickers[0].nepaliDatePicker();
+} else {
+  // Multiple datepicker case (unchanged)
+  datepickers.forEach(function(el) {
+    el.nepaliDatePicker();
+  });
+}
+</script>
 </body>
 
 </html>

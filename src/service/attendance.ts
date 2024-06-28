@@ -22,7 +22,6 @@ export class AttendanceService {
     const isEmployee = await AppDataSource.getRepository(UserEntity).findOne({ where: { cardId: id.toString() } });
 
     if (!isEmployee) {
-      console.log("not employee")
       return { name: "not an employee", message: "Invalid" };
     }
 

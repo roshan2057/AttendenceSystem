@@ -7,7 +7,7 @@ export class AttendanceLogEntity {
     @PrimaryGeneratedColumn()
     id: string;
 
-    @Column({ type: 'date', nullable: false })
+    @Column({ type: 'text', nullable: false })
     date: string;
 
     @ManyToOne(() => UserEntity, (user) => user.log)
@@ -30,6 +30,9 @@ export class AttendanceLogEntity {
 
     @Column({ type: 'time', nullable: true })
     total: string;
+
+    @Column({ type: 'text', default:'WFO' })
+    type: string;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created: Date;

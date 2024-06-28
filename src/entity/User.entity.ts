@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { POSITION_ENUM } from "../common/common.enum";
 import { AttendanceLogEntity } from "./AttendanceLog.entity";
+import { PositionEntity } from "./Position.entity";
 
 @Entity({ name: "user" })
 export class UserEntity {
@@ -29,10 +32,10 @@ export class UserEntity {
   @Column({ nullable: true })
   cardId: string;
 
-  @Column({ nullable:true })
-  position: string;
+  @ManyToOne(() => PositionEntity, position => position.users)
+  position: PositionEntity;
 
-  @Column({ type: String, nullable:true })
+  @Column({ type: String, nullable: true })
   phone: string;
 
   @Column({ nullable: true })
@@ -45,10 +48,16 @@ export class UserEntity {
   profileUrl: string;
 
   @Column({ nullable: true })
+  docs: string;
+
+  @Column({ nullable: true })
+  citizenshipNo: string;
+
+  @Column({ nullable: true })
   gender: string;
 
   @OneToMany(() => AttendanceLogEntity, (user) => user.user, {
-    cascade: true
+    cascade: true,
   })
   log: AttendanceLogEntity[];
 

@@ -1,400 +1,498 @@
-<%- include("./partial/navbar") %>
-  <%- include("./partial/sidebar") %>
+<%- include("./partial/navbar") %> <%- include("./partial/sidebar") %>
 
-
-
-
-
-
-    <div class="bg-gray-100">
-      <div class="container mx-auto my-5 p-5">
-        <div class="md:flex no-wrap md:-mx-2 ">
-          <!-- Left Side -->
-          <div class="w-full md:w-3/12 md:mx-2">
-            <!-- Profile Card -->
-            <div class="bg-white p-3 border-t-4 border-gray-500">
-              <div class="image overflow-hidden border-2">
-                <img class="h-auto max-w-xs mx-auto rounded-md" src='/avtar/<%= data.profileUrl  %>' alt="">
-              </div>
-              <h1 class="block text-center text-gray-900 font-bold text-3xl leading-8 my-1">
-                <%= data.name %>
-              </h1>
-
-              <ul
-                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                <li class="flex items-center py-3">
-                  <span>Card Id</span>
-                  <span class="ml-auto">
-                    <%= data.cardId %>
-                  </span>
-                </li>
-                <li class="flex items-center py-3">
-                  <span>Position</span>
-                  <span class="ml-auto">
-                    <%= data.position %>
-                  </span>
-                </li>
-
-                <li class="flex items-center py-3">
-                  <span>Working Days</span>
-                  <span class="ml-auto">
-                    <%= attendance %>
-                  </span>
-                </li>
-
-
-                <li class="flex items-center py-3" id="send_mail">
-                  <span>Send Mail</span>
-                  <span class="ml-auto">
-                    <button
-                      class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8"
-                      onclick="openModal('modal2')">Send</button>
-                  </span>
-                </li>
-                <li class="flex items-center py-3 justify-center" id="send_mail">
-                  <a href="/edit?id=<%= data.id  %>" class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8">Edit Employee</a>
-                </li>
-              </ul>
-            </div>
-            <!-- End of profile card -->
-            <div class="my-4"></div>
+<div class="bg-gray-100">
+  <div class="container mx-auto my-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2">
+      <!-- Left Side -->
+      <div class="w-full md:w-3/12 md:mx-2">
+        <!-- Profile Card -->
+        <div class="bg-white p-3 border-t-4 border-gray-500">
+          <div class="image overflow-hidden border-2">
+            <img
+              class="h-auto mx-auto rounded-md"
+              src="/avtar/<%= data.profileUrl  %>"
+              alt=""
+            />
           </div>
-          <!-- Right Side -->
-          <div class="w-full md:w-9/12 mx-2 h-64">
-            <!-- Profile tab -->
-            <!-- About Section -->
-            <div class="bg-white p-3 shadow-sm rounded-sm">
-              <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                <span clas="text-green-500">
-                  <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </span>
-                <span class="tracking-wide">About</span>
-              </div>
-              <div class="text-gray-700">
-                <div class="grid md:grid-cols-2 text-sm">
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Name</div>
-                    <div class="px-4 py-2">
-                      <%= data.name %>
-                    </div>
-                  </div>
-              
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Gender</div>
-                    <div class="px-4 py-2">
-                      <%= data.gender %>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Address</div>
-                    <div class="px-4 py-2">
-                      <%= data.address %>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Contact No.</div>
-                    <div class="px-4 py-2">
-                      <%= data.phone %>
-                    </div>
-                  </div>
-                
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Email</div>
-                    <div class="px-4 py-2">
-                      <a class="text-blue-800" href="mailto:jane@example.com">
-                        <%= data.email %>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-2">
-                    <div class="px-4 py-2 font-semibold">Birthday</div>
-                    <div class="px-4 py-2">
-                      <%=  new Date(data.dob).toDateString() %>
-                     
-                    </div>
+          <h1
+            class="block text-center text-gray-900 font-bold text-3xl leading-8 my-1"
+          >
+            <%= data.name %>
+          </h1>
 
-                  </div>
+          <ul
+            class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
+          >
+            <li class="flex items-center py-3">
+              <span>Card Id</span>
+              <span class="ml-auto"> <%= data.cardId %> </span>
+            </li>
+            <li class="flex items-center py-3">
+              <span>Position</span>
+              <span class="ml-auto"> <%= data.position.position %> </span>
+            </li>
+
+            <li class="flex items-center py-3">
+              <span>Working Days</span>
+              <span class="ml-auto"> <%= attendance %> </span>
+            </li>
+
+            <li class="flex items-center py-3">
+              <span>Citizenship No</span>
+              <span class="ml-auto"> <%= data.citizenshipNo %> </span>
+            </li>
+            <li class="flex items-center py-3">
+              <span>Document</span>
+              <% if (data.docs) { %>
+                <a href="/avtar/<%= data.docs %>"
+                  class="ml-auto w-75 font-medium title-font text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8 cursor-pointer"
+                  download
+                  >
+                  Download
+                  <% } else { %>
+                   <span  class="ml-auto w-75 font-medium title-font text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8 cursor-pointer">No document</span>
+                  <% } %>
+                </a>
+              </li>
+            
+          
+
+
+            
+
+            <li class="flex items-center py-3" id="send_mail">
+              <span>Send Mail</span>
+              <span class="ml-auto">
+                <!-- <a href="mailto:<%= data.email %>" target="_blank" rel="noopener noreferrer">Send Mail</a> -->
+
+                <a
+                  class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8"
+                  href="mailto:<%= data.email %>"
+                  >Send Mail</a
+                >
+                <!-- <button
+                      class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8"
+                      onclick="openModal('modal2')">Send</button> -->
+              </span>
+            </li>
+            <li class="flex items-center py-3 justify-center" id="edit">
+              <a
+                href="/edit?id=<%= data.id  %>"
+                class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8"
+                >Edit Employee</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- End of profile card -->
+        <div class="my-4"></div>
+      </div>
+      <!-- Right Side -->
+      <div class="w-full md:w-9/12 mx-2 h-64">
+        <!-- Profile tab -->
+        <!-- About Section -->
+        <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div
+            class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
+          >
+            <span clas="text-green-500">
+              <svg
+                class="h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </span>
+            <span class="tracking-wide">About</span>
+          </div>
+          <div class="text-gray-700">
+            <div class="grid md:grid-cols-2 text-sm">
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Name</div>
+                <div class="px-4 py-2"><%= data.name %></div>
+              </div>
+
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Gender</div>
+                <div class="px-4 py-2"><%= data.gender %></div>
+              </div>
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Address</div>
+                <div class="px-4 py-2"><%= data.address %></div>
+              </div>
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Contact No.</div>
+                <div class="px-4 py-2"><%= data.phone %></div>
+              </div>
+
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Email</div>
+                <div class="px-4 py-2">
+                  <a class="text-blue-800" href="mailto:jane@example.com">
+                    <%= data.email %>
+                  </a>
+                </div>
+              </div>
+              <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">Birthday</div>
+                <div class="px-4 py-2">
+                  <%= new Date(data.dob).toDateString() %>
                 </div>
               </div>
             </div>
-            <!-- End of about section -->
+          </div>
+        </div>
+        <!-- End of about section -->
 
-            <div class="my-4"></div>
+        <div class="my-4"></div>
 
-            <!-- Experience and education -->
-            <div class="bg-white p-3 shadow-sm rounded-sm">
+        <!-- Experience and education -->
+        <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="flex mx-10 justify-between text-end w-full mb-1">
+            <h1 class="text-xl">Attendence Logs</h1>
+            <form action="/employee/<%= data.id %>" method="get">
+              <!-- <input
+                type="date"
+                name="date"
+                class="date-input w-75 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-8"
+              /> -->
+              <input
+                type="text"
+                id="nepali-datepicker-from"
+                name="fromdate"
+                placeholder="From"
+                class="w-36 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-1 text-center nepali-datepicker"
+              />
+              <input
+                type="text"
+                id="nepali-datepicker-to"
+                name="todate"
+                placeholder="To"
+                class="w-36 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-1 text-center nepali-datepicker"
+              />
 
+              <input
+                type="submit"
+                value="Search"
+                class="bg-gray-700 px-3 py-0.5 text-white rounded-lg mr-10"
+              />
+            </form>
+          </div>
 
-
-
-              <div class="flex mx-10 justify-between text-end w-full mb-1">
-                <h1 class="text-xl">Attendence Logs</h1>
-                <form action="/employee/<%= data.id %>" method="get">
-                  <input type="date" name="date"
-                    class="date-input w-75 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-8">
-                  <input type="submit" value="Search" class="bg-gray-700 px-3 py-0.5 text-white rounded-lg mr-10">
-                </form>
-              </div>
-
-
-
-
-              <!-- component -->
-              <div class="flex flex-col">
-                <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-                  <div class="py-2 inline-block min-w-full sm:px-1 lg:px-1">
-                    <div class="overflow-hidden">
-                      <table class="min-w-full">
-                        <thead class="bg-gray-200 border-b">
-                          <tr>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Date
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Time 1
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Time 2
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Break
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Time 3
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Time 4
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                              Total
-                            </th>
-                            <!-- <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <!-- component -->
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+              <div class="py-2 inline-block min-w-full sm:px-1 lg:px-1">
+                <div class="overflow-hidden">
+                  <table class="min-w-full">
+                    <thead class="bg-gray-200 border-b">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Date
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Time 1
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Time 2
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Break
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Time 3
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Time 4
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Total
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                        >
+                          Type
+                        </th>
+                        <!-- <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                               Remarks
                             </th> -->
-                          </tr>
-                        </thead>
-                        <tbody>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% {log.forEach((log,index)=>{ %>
+                      <tr
+                        class="<%= log.type === 'WFH' ? 'bg-blue-100' : 'bg-white' %> border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                      >
+                        <td
+                          class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                        >
+                          <%= log.date%>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.time1?log.time1:"-"%>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.time2 ? log.time2 : "-" %>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.break ? log.break : "-" %>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.time3 ? log.time3 : "-" %>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.time4 ? log.time4 : "-" %>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.total ? log.total : "-" %>
+                        </td>
+                        <td
+                          class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                        >
+                          <%= log.type %>
+                        </td>
 
-
-                          <% {log.forEach((log,index)=>{
-                            %>
-                            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <%= log.date%>
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.time1?log.time1:"-"%>
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.time2 ? log.time2 : "-" %>
-
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.break ? log.break : "-" %>
-
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.time3 ? log.time3 : "-" %>
-
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.time4 ? log.time4 : "-" %>
-
-                              </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                <%= log.total ? log.total : "-" %>
-
-                              </td>
-
-                              <!-- <td class="text-sm text-gray-900 font-light px-6 py-4 text-wrap w-9">
+                        <!-- <td class="text-sm text-gray-900 font-light px-6 py-4 text-wrap w-9">
                                 <%= log.Remarks ? log.total : "Its not Acceptable" %>
                               </td> -->
-                            </tr>
-                            <% })} %>
-
-
-
-
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+                      </tr>
+                      <% })} %>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-
-
-              <!-- component -->
-              <div class="flex bg-white ml-1 justify-between">
-                <ul class="flex items-center ">
-                  <li class="px-[6px]">
-                    <a href="javascript:void(0)"
-                      class="pagination-link w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-gray-100 hover:border-primary">
-                      <span class="flex">
-                        <svg width="8" height="15" viewBox="0 0 8 15" class="fill-current stroke-current">
-                          <path
-                            d="M7.12979 1.91389L7.1299 1.914L7.1344 1.90875C7.31476 1.69833 7.31528 1.36878 7.1047 1.15819C7.01062 1.06412 6.86296 1.00488 6.73613 1.00488C6.57736 1.00488 6.4537 1.07206 6.34569 1.18007L6.34564 1.18001L6.34229 1.18358L0.830207 7.06752C0.830152 7.06757 0.830098 7.06763 0.830043 7.06769C0.402311 7.52078 0.406126 8.26524 0.827473 8.73615L0.827439 8.73618L0.829982 8.73889L6.34248 14.6014L6.34243 14.6014L6.34569 14.6047C6.546 14.805 6.88221 14.8491 7.1047 14.6266C7.30447 14.4268 7.34883 14.0918 7.12833 13.8693L1.62078 8.01209C1.55579 7.93114 1.56859 7.82519 1.61408 7.7797L1.61413 7.77975L1.61729 7.77639L7.12979 1.91389Z"
-                            stroke-width="0.3"></path>
-
-                        </svg>
-
-                      </span>
-                    </a>
-                  </li>
-
-                  <li class="px-[6px]">
-                    <a href="javascript:void(1)"
-                      class="pagination-link w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-gray-100 hover:border-primary ">
-                      <span>
-                        <svg width="8" height="15" viewBox="0 0 8 15" class="fill-current stroke-current">
-                          <path
-                            d="M0.870212 13.0861L0.870097 13.086L0.865602 13.0912C0.685237 13.3017 0.684716 13.6312 0.895299 13.8418C0.989374 13.9359 1.13704 13.9951 1.26387 13.9951C1.42264 13.9951 1.5463 13.9279 1.65431 13.8199L1.65436 13.82L1.65771 13.8164L7.16979 7.93248C7.16985 7.93243 7.1699 7.93237 7.16996 7.93231C7.59769 7.47923 7.59387 6.73477 7.17253 6.26385L7.17256 6.26382L7.17002 6.26111L1.65752 0.398611L1.65757 0.398563L1.65431 0.395299C1.454 0.194997 1.11779 0.150934 0.895299 0.373424C0.695526 0.573197 0.651169 0.908167 0.871667 1.13067L6.37922 6.98791C6.4442 7.06886 6.43141 7.17481 6.38592 7.2203L6.38587 7.22025L6.38271 7.22361L0.870212 13.0861Z"
-                            stroke-width="0.3"></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </li>
-
-                </ul>
-                <form action="/download/user-report" method="post">
-                  <input type="hidden" name="id" value="<%=data.id %>">
-                  <input type="hidden" name="name" value="<%=data.name %>">
-                  <button type="submit"
-                    class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8">Export
-                  </button>
-                </form>
-              </div>
-
             </div>
+          </div>
 
+          <!-- component -->
+          <div class="flex bg-white ml-1 justify-between">
+            <ul class="flex items-center">
+              <li class="px-[6px]">
+                <a
+                  href="javascript:void(0)"
+                  class="pagination-link w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-gray-100 hover:border-primary"
+                >
+                  <span class="flex">
+                    <svg
+                      width="8"
+                      height="15"
+                      viewBox="0 0 8 15"
+                      class="fill-current stroke-current"
+                    >
+                      <path
+                        d="M7.12979 1.91389L7.1299 1.914L7.1344 1.90875C7.31476 1.69833 7.31528 1.36878 7.1047 1.15819C7.01062 1.06412 6.86296 1.00488 6.73613 1.00488C6.57736 1.00488 6.4537 1.07206 6.34569 1.18007L6.34564 1.18001L6.34229 1.18358L0.830207 7.06752C0.830152 7.06757 0.830098 7.06763 0.830043 7.06769C0.402311 7.52078 0.406126 8.26524 0.827473 8.73615L0.827439 8.73618L0.829982 8.73889L6.34248 14.6014L6.34243 14.6014L6.34569 14.6047C6.546 14.805 6.88221 14.8491 7.1047 14.6266C7.30447 14.4268 7.34883 14.0918 7.12833 13.8693L1.62078 8.01209C1.55579 7.93114 1.56859 7.82519 1.61408 7.7797L1.61413 7.77975L1.61729 7.77639L7.12979 1.91389Z"
+                        stroke-width="0.3"
+                      ></path>
+                    </svg>
+                  </span>
+                </a>
+              </li>
 
-
-
-            <!-- End of profile tab -->
+              <li class="px-[6px]">
+                <a
+                  href="javascript:void(1)"
+                  class="pagination-link w-9 h-9 flex items-center justify-center rounded-md border border-[#EDEFF1] text-[#838995] text-base hover:bg-gray-100 hover:border-primary"
+                >
+                  <span>
+                    <svg
+                      width="8"
+                      height="15"
+                      viewBox="0 0 8 15"
+                      class="fill-current stroke-current"
+                    >
+                      <path
+                        d="M0.870212 13.0861L0.870097 13.086L0.865602 13.0912C0.685237 13.3017 0.684716 13.6312 0.895299 13.8418C0.989374 13.9359 1.13704 13.9951 1.26387 13.9951C1.42264 13.9951 1.5463 13.9279 1.65431 13.8199L1.65436 13.82L1.65771 13.8164L7.16979 7.93248C7.16985 7.93243 7.1699 7.93237 7.16996 7.93231C7.59769 7.47923 7.59387 6.73477 7.17253 6.26385L7.17256 6.26382L7.17002 6.26111L1.65752 0.398611L1.65757 0.398563L1.65431 0.395299C1.454 0.194997 1.11779 0.150934 0.895299 0.373424C0.695526 0.573197 0.651169 0.908167 0.871667 1.13067L6.37922 6.98791C6.4442 7.06886 6.43141 7.17481 6.38592 7.2203L6.38587 7.22025L6.38271 7.22361L0.870212 13.0861Z"
+                        stroke-width="0.3"
+                      ></path>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <form action="/download/user-report" method="post">
+              <input type="hidden" name="id" value="<%=data.id %>" />
+              <input type="hidden" name="name" value="<%=data.name %>" />
+              <button
+                type="submit"
+                class="w-75 font-medium title-font py-1 text-gray-100 bg-gray-700 border-2 border-gray-200 rounded-lg px-8"
+              >
+                Export
+              </button>
+            </form>
           </div>
         </div>
+
+        <!-- End of profile tab -->
       </div>
     </div>
+  </div>
+</div>
 
-
-
-    <div class="fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
-      id="modal2" style="background: rgba(0,0,0,.7); display: none;">
-      <div
-        class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-        <div class=" modal-content py-4 text-left px-6">
-
-          <div class="flex justify-between items-center pb-3">
-            <p class="text-2xl font-bold">Send a Email</p>
-
+<div
+  class="fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+  id="modal2"
+  style="background: rgba(0, 0, 0, 0.7); display: none"
+>
+  <div
+    class="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto"
+  >
+    <div class="modal-content py-4 text-left px-6">
+      <div class="flex justify-between items-center pb-3">
+        <p class="text-2xl font-bold">Send a Email</p>
+      </div>
+      <form action="/sendmail" id="sms" method="POST">
+        <div class="my-5">
+          <div class="flex justify-evenly">
+            <div class="mb-5">
+              <label>To:- </label>
+              <input
+                type="email"
+                class="border-2 border-gray-150"
+                name="to"
+                value="<%=data.email %>"
+                required
+              />
+            </div>
           </div>
-          <form action="/sendmail" id="sms" method="POST">
-            <div class="my-5">
-              <div class="flex justify-evenly">
-                <div class="mb-5">
-                  <label>To:- </label>
-                  <input type="email" class="border-2 border-gray-150" name="to" value="<%=data.email %>" required>
-                </div>
+          <input
+            type="text"
+            class="w-full border-2 border-gray-150 rounded-lg p-5"
+            placeholder="Subject"
+            name="subject"
+            required
+          />
 
-              </div>
-              <input type="text" class="w-full border-2 border-gray-150 rounded-lg p-5" placeholder="Subject"
-                name="subject" required>
+          <input type="hidden" name="id" value="fjdsas" />
 
-              <input type="hidden" name="id" value="fjdsas">
-
-              <textarea type="text" class="w-full border-2 border-gray-150 rounded-lg p-5"
-                placeholder="Enter the message" name="message" required></textarea>
-
-            </div>
-            <div class="flex justify-end">
-              <button type="submit"
-                class="inline focus:outline-none px-4 bg-teal-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">Send</button>
-
-              <button class="focus:outline-none px-4 bg-gray-400 ml-3 p-3 rounded-lg text-black hover:bg-gray-300"
-                onclick="closeModal(event,'modal2')">Cancel</button>
-            </div>
-
-          </form>
+          <textarea
+            type="text"
+            class="w-full border-2 border-gray-150 rounded-lg p-5"
+            placeholder="Enter the message"
+            name="message"
+            required
+          ></textarea>
         </div>
-      </div>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="inline focus:outline-none px-4 bg-teal-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
+          >
+            Send
+          </button>
+
+          <button
+            class="focus:outline-none px-4 bg-gray-400 ml-3 p-3 rounded-lg text-black hover:bg-gray-300"
+            onclick="closeModal(event,'modal2')"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Pagination
+    const paginationLinks = document.querySelectorAll(".pagination-link");
 
+    // Function to update the page query parameter
+    function updatePageQuery(increment) {
+      const urlParams = new URLSearchParams(window.location.search);
+      let currentPage = parseInt(urlParams.get("page")) || 1;
 
-
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Pagination
-        const paginationLinks = document.querySelectorAll(".pagination-link");
-
-        // Function to update the page query parameter
-        function updatePageQuery(increment) {
-          const urlParams = new URLSearchParams(window.location.search);
-          let currentPage = parseInt(urlParams.get("page")) || 1;
-
-          if (increment) {
-            currentPage++;
-          } else {
-            currentPage = Math.max(1, currentPage - 1);
-          }
-
-          urlParams.set("page", currentPage);
-          window.location.search = urlParams.toString();
-        }
-
-        // Add click event listeners to the pagination links
-        paginationLinks.forEach((link, index) => {
-          link.addEventListener("click", function (event) {
-            event.preventDefault();
-            const isNext = index === 1; // Change this condition based on your layout
-            updatePageQuery(isNext);
-          });
-        });
-      });
-    </script>
-
-
-
-
-    <script>
-      function openModal(modalId) {
-        console.log(modalId)
-        var modal = document.getElementById(modalId);
-        modal.style.display = 'block';
+      if (increment) {
+        currentPage++;
+      } else {
+        currentPage = Math.max(1, currentPage - 1);
       }
 
+      urlParams.set("page", currentPage);
+      window.location.search = urlParams.toString();
+    }
 
-      function closeModal(event, modalId) {
+    // Add click event listeners to the pagination links
+    paginationLinks.forEach((link, index) => {
+      link.addEventListener("click", function (event) {
         event.preventDefault();
-        console.log(modalId)
+        const isNext = index === 1; // Change this condition based on your layout
+        updatePageQuery(isNext);
+      });
+    });
+  });
+</script>
 
-        var modal = document.getElementById(modalId);
-        modal.style.display = 'none';
+<script>
+  function openModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "block";
+  }
 
-      }
+  function closeModal(event, modalId) {
+    event.preventDefault();
 
-    </script>
-
-
+    var modal = document.getElementById(modalId);
+    modal.style.display = "none";
+  }
+</script>
 
 <script>
   function hideSidebarIfLoggedIn() {
-     var role = Cookies.get('role');
-     var sidebar = document.getElementById('sidebar');
-     var sendMail = document.getElementById('send_mail');
-     if (role =='user') {
-        sidebar.style.display = 'none';
-        sendMail.style.display = 'none';
-     }
+    var role = Cookies.get("role");
+    var sidebar = document.getElementById("sidebar");
+    var sendMail = document.getElementById("send_mail");
+    var edit = document.getElementById("edit");
+    if (role == "user") {
+      sidebar.style.display = "none";
+      sendMail.style.display = "none";
+      edit.style.display = "none";
+    }
   }
   window.onload = hideSidebarIfLoggedIn;
 </script>
-
-
 
 <script>
   const today = new Date();
@@ -403,11 +501,9 @@
   const dd = String(today.getDate()).padStart(2, "0");
   const maxDate = `${yyyy}-${mm}-${dd}`;
   const dateInputs = document.querySelectorAll(".date-input");
-  dateInputs.forEach(dateInput => {
+  dateInputs.forEach((dateInput) => {
     dateInput.setAttribute("max", maxDate);
   });
 </script>
 
-
-
-    <%- include("./partial/footer") %>
+<%- include("./partial/footer") %>

@@ -37,11 +37,14 @@
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3.5 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                     <option>Select Position</option>
                                     <% {position.forEach((p,index)=>{ %>
-                                        <option key="<%= index%>" value="<%= p.name %>">
-                                   <%= p.name%>
+                                        <option key="<%= index%>" value="<%= p.id %>" <% if (p.id === user.position.id) { %> selected <% } %> >
+                                   <%= p.position%>
                                         </option>
+                                        
                                         <% }) } %>
                                 </select>
+
+                                   
                             </div>
                         </div>
                         <div class="w-full px-3 sm:w-1/2">
@@ -119,9 +122,32 @@
                             </div>
 
                         </div>
+                    </div>
 
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="address" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    CitizenShip No
+                                </label>
+                                <input type="number" name="citizenshipNo" id="Citizenship" value="<%= user.citizenshipNo %>"
+                                    placeholder="Enter the Citizenship No" min="0"
+                                    class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
+                            </div>
+                        </div>
+                        <!-- <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="dob" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Date of Birth
+                                </label>
+                                <input type="date" name="dob" id="dob"
+                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            </div>
+                        </div> -->
 
                     </div>
+
                     <div class="mb-5">
                         <label for="address" class="mb-3 block text-base font-medium text-[#07074D]">
                             Address
@@ -149,9 +175,22 @@
                                         <img id="output" width="100">
                                         <span class="text-gray-600 font-medium">Upload a image</span>
                                     </label>
-                                    <input type="file" name="image" class="hidden" id="upload"
-                                        onchange="loadFile(event)" accept="image/*" />
+                                    <input type="file" name="image" class=""
+                                        accept="image/*" />
                                 </div>
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+
+                                <div class="rounded-md border border-gray-100 bg-white shadow-md">
+                                    <label for="upload" class="flex flex-col items-center gap-2 cursor-pointer">
+                                        <img id="output" width="100">
+                                        <span class="text-gray-600 font-medium">Upload a Document</span>
+                                    </label>
+                                    <input type="file" name="docs" class="" accept="image/*" />
+                                </div>
+
                             </div>
                         </div>
                     </div>

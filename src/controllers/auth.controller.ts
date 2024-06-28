@@ -61,7 +61,8 @@ export class AuthController {
     }
     const employeeDetails = await AppDataSource.getRepository(UserEntity).findOne({
       where: { id: req.params.id },
-      select: ['name', 'cardId', 'position', 'id', 'gender', 'phone', 'address', 'dob', 'profileUrl', 'email']
+      select: ['name', 'cardId', 'position', 'id', 'gender', 'phone', 'address', 'dob', 'profileUrl', 'email'],
+      relations:['position']
     })
     const perPage = 5;
     const page = typeof req.query.page === 'string' ? parseInt(req.query.page) || 1 : 1;

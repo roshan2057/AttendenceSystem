@@ -4,6 +4,7 @@ import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 import { AttendanceLogEntity } from "./entity/AttendanceLog.entity";
 import { UserEntity } from "./entity/User.entity";
+import { PositionEntity } from "./entity/Position.entity";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ export const AppDataSource = new DataSource({
   synchronize: NODE_ENV === "dev" ? true : true,
 //logging logs sql command on the treminal
   logging: NODE_ENV === "dev" ? false : false,
-  entities: [UserEntity,AttendanceLogEntity],
+  entities: [UserEntity,AttendanceLogEntity,PositionEntity],
   migrations: [__dirname + "/migration/*.ts"],
   subscribers: [],
 });

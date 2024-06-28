@@ -10,6 +10,7 @@ import cookieParser = require("cookie-parser");
 import { AttendanaceController } from "./controllers/attendance.controller";
 import { deviceAuth } from "./middleware/device.middleware";
 import { AdminSeed } from "./seeds/adminSeed";
+import { PositionSeed } from "./seeds/positionSeed";
 dotenv.config();
 
 
@@ -38,7 +39,8 @@ app.get("*", (req: Request, res: Response) => {
 AppDataSource.initialize()
   .then(async () => {
     if (process.env.SEED_DB == "TRUE") {
-      await AdminSeed.insert();
+    const adminId=  await PositionSeed.insert();
+      await AdminSeed.insert(adminId);
     }
     app.listen(PORT, () => {
       console.log("Server is running on http://localhost:" + PORT);
