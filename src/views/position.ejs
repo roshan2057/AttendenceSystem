@@ -1,14 +1,14 @@
 <%- include("./partial/navbar")%> <%- include('./partial/sidebar');%>
-<h1 class="text-center">Position</h1>
+<h1 class="text-center text-4xl">Position</h1>
 
 <div class="flex justify-around">
     <div>
-        <h1 class="text-center">Add new of Position</h1>
+        <h1 class="text-center">Add new Position</h1>
 
-        <form class="bg-gray-100 rounded-lg p-5 flex flex-col justify-center ">
-            <label>Add New Position</label>
-            <input type="text" name="position" placeholder="Enter the new position">
-            <input type="submit" value="Insert">
+        <form class="bg-gray-100 rounded-lg p-5 flex flex-col justify-center gap-5" action="create-position" method="post">
+            <label for="position">Add New Position</label>
+            <input type="text" name="position" id="position" placeholder="Enter the new position" class="p-2">
+            <input type="submit" class="bg-gray-700 px-3 py-0.5 text-white rounded-lg" value="Insert">
         </form>
     </div>
     <div>
@@ -28,7 +28,7 @@
                 <tr>
                     <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><%= index+1 %></td>
                     <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><%= p.position %></td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap">Delete</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><a href="/delete/position/<%= p.id %>">Delete</a></td>
                 </tr>
                 <% }) %>
             

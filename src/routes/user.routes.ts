@@ -4,6 +4,7 @@ import { authentification, authorization } from "../middleware/auth.middleware";
 import { UserController } from "../controllers/user.controller";
 import upload from "../fileupload/fileupload";
 import { ExcelController } from "../controllers/excel.controller";
+import { Report } from "../controllers/report";
 const Router = express.Router();
 
 Router.get("/", (req, res) => {
@@ -18,12 +19,17 @@ Router.get("/admin", authentification, authorization(["admin"]), UserController.
 Router.get("/employee/:id", authentification, authorization(["admin"]), UserController.getProfile);
 Router.get("/edit", authentification, authorization(["admin"]), UserController.renderUserEdit);
 Router.get("/manual-entry", authentification, authorization(["admin"]), UserController.renderManualEntry);
+Router.get("/report", authentification, authorization(["admin"]), Report.renderReport);
 Router.get("/position", authentification, authorization(["admin"]), UserController.renderPosition);
 Router.get("/delete/:id", authentification, authorization(["admin"]), UserController.deleteUser);
 Router.get("/logout", AuthController.logout)
+Router.get("/delete/position/:id", authentification, authorization(["admin"]), UserController.deletePosition);
 
+
+Router.get("/report/export", authentification, authorization(["admin"]), Report.userReport);
 
 Router.post("/login", AuthController.login);
+Router.post("/create-position", authentification, authorization(["admin"]), UserController.createPosition);
 Router.post("/signup", authentification, authorization(["admin"]), upload.fields([
     { name: 'docs'},
     { name: 'image'}]), UserController.signup);

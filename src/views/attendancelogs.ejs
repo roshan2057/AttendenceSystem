@@ -42,7 +42,7 @@
             <tbody>
 
               <%{ data.forEach((value,index)=>{ %>
-                <tr key="<%= index %>" class="cursor-pointer bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" onclick="select('<%= value.id %>')">
+                <tr key="<%= index %>" class="cursor-pointer bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" onclick="select('<%= value.user.id %>')">
                   <td class="px-4 py-3"> <%= index+1 %></td>
                   <td class="px-4 py-3"> <img src='/avtar/<%= value.user.profileUrl  %>' width="90"> </td>
                   <td class="px-4 py-3"> <%= value.user.name %> </td>
@@ -93,7 +93,8 @@
     </section>
     <script>
       function select(id) {
-        window.location.href = `/student_profile?id=${id}`;
+        console.log(id)
+        window.location.href = `/employee/${id}`;
       }
     </script>
 

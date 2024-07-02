@@ -1,0 +1,106 @@
+<%- include("./partial/navbar")%> <%- include('./partial/sidebar');%>
+<style>
+  .sticky-col {
+    position: sticky;
+    left: 0;
+    z-index: 1; /* Ensure the sticky column overlays other content when scrolling */
+    background-color: white; /* Override any transparent background issues */
+  }
+
+  /* Ensure the table container allows for horizontal scrolling */
+  .overflow-x-auto {
+    overflow-x: auto;
+  }
+</style>
+<div class="relative mr-8">
+  <h1 class="text-center font-medium text-4xl mb-5">Log Report</h1>
+  <div class="flex justify-end items-start">
+  <form action="/report" method="get">
+    <!-- <input
+          type="date"
+          name="date"
+          class="date-input w-75 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-8"
+        /> -->
+    <input
+      type="text"
+      id="nepali-datepicker-from"
+      name="fromdate"
+      placeholder="From"
+      class="w-36 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-1 text-center nepali-datepicker"
+    />
+    <input
+      type="text"
+      id="nepali-datepicker-to"
+      name="todate"
+      placeholder="To"
+      class="w-36 font-medium title-font mb-2 text-gray-900 border-2 border-gray-200 rounded-lg px-1 text-center nepali-datepicker"
+    />
+
+    <input
+      type="submit"
+      value="Search"
+      class="bg-gray-700 px-3 py-0.5 text-white rounded-lg mr-2"
+    />
+  </form>
+
+  <button class="bg-gray-700 px-3 py-0.5 text-white rounded-lg mr-1 text-center" onclick="exportData()">Export</button>
+</div>
+
+ 
+  <div class="overflow-x-auto">
+    <table
+      class="w-auto min-w-full sticky top-9 bg-white border-collapse border border-gray-200"
+    >
+      <thead class="bg-gray-200 border-b">
+        <tr>
+          <% header.forEach((head, index) => { %>
+          <th class="<%= index === 0 ? 'sticky-col' : '' %> text-sm font-medium text-gray-900 px-2 py-4 text-left">
+            <%= head %>
+          </th>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((item, index) => { %>
+        <tr
+          class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+        >
+          <% item.forEach((row, rindex) => { %>
+          <td
+            class="<%= rindex === 0 ? 'sticky-col' : '' %> text-gray-900 font-light px-6 py-4 whitespace-nowrap <%= rindex === 0 ? 'font-medium text-md' : 'text-sm' %> <%= row=='Absent'?'bg-red-200':'' %> <%= row=='WFH'?'bg-green-200':'' %>"
+          >
+            <%= row %>
+          </td>
+          <% }) %>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromDate = urlParams.get("fromdate");
+    const toDate = urlParams.get("todate");
+
+    if (fromDate) {
+      document.getElementById("nepali-datepicker-from").value = fromDate;
+    }
+    if (toDate) {
+      document.getElementById("nepali-datepicker-to").value = toDate;
+    }
+  });
+</script>
+
+<script>
+  function exportData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromDate = urlParams.get("fromdate") || "";
+    const toDate = urlParams.get("todate") || "";
+    window.location.href = `/report/export?fromdate=${fromDate}&todate=${toDate}`;
+  }
+  </script>
+
+<%- include('./partial/footer');%>

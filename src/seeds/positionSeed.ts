@@ -12,6 +12,7 @@ export class PositionSeed {
       { name: "Intern" },
       { name: "Frontend Developer" },
       { name: "Quality Assurance" },
+      { name: "Devops" }
     ];
     const positonRepository = AppDataSource.getRepository(PositionEntity);
 

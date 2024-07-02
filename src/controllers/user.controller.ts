@@ -1,4 +1,4 @@
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entity/User.entity";
 import { encrypt } from "../helpers/encrypt";
@@ -266,54 +266,85 @@ export class UserController {
   }
 
   static async getProfile(req: Request, res: Response) {
-    const employeeDetails = await AppDataSource.getRepository(
-      UserEntity
-    ).findOne({
-      where: { id: req.params.id },
-      select: [
-        "name",
-        "cardId",
-        "position",
-        "id",
-        "gender",
-        "phone",
-        "address",
-        "dob",
-        "profileUrl",
-        "email",
-        "citizenshipNo",
-        "docs",
-      ],
-      relations: ["position"],
-    });
-    const perPage = 5;
-    const page =
-      typeof req.query.page === "string" ? parseInt(req.query.page) || 1 : 1;
-    const condition: any = { user: employeeDetails };
-    if (req.query.fromdate && req.query.todate) {
-      condition.date = Between(req.query.fromdate, req.query.todate);
-      // condition.date = req.query.date;
+    try {
+      const employeeDetails = await AppDataSource.getRepository(
+        UserEntity
+      ).findOne({
+        where: { id: req.params.id },
+        select: [
+          "name",
+          "cardId",
+          "position",
+          "id",
+          "gender",
+          "phone",
+          "address",
+          "dob",
+          "profileUrl",
+          "email",
+          "citizenshipNo",
+          "docs",
+        ],
+        relations: ["position"],
+      });
+      const perPage = 5;
+      const page =
+        typeof req.query.page === "string" ? parseInt(req.query.page) || 1 : 1;
+      const condition: any = { user: employeeDetails };
+      if (req.query.fromdate && req.query.todate) {
+        condition.date = Between(req.query.fromdate, req.query.todate);
+        // condition.date = req.query.date;
+      }
+      const attendance = await AppDataSource.getRepository(
+        AttendanceLogEntity
+      ).count({ where: { user: employeeDetails } });
+
+      const logDetails = await AppDataSource.getRepository(
+        AttendanceLogEntity
+      ).find({
+        where: condition,
+        order: {
+          date: "DESC",
+        },
+
+        take: perPage,
+        skip: perPage * (page - 1),
+      });
+      res.render("profile", {
+        data: employeeDetails,
+        log: logDetails,
+        attendance: attendance,
+      });
+    } catch (error) {
+      console.error("Error getting profile:", error);
     }
-    const attendance = await AppDataSource.getRepository(
-      AttendanceLogEntity
-    ).count({ where: { user: employeeDetails } });
+  }
+  static async createPosition(req: Request, res: Response) {
+    try {
+      const position = new PositionEntity();
+      position.position = req.body.position;
+      const positionRepository = AppDataSource.getRepository(PositionEntity);
+      await positionRepository.save(position);
+      res.redirect("/position");
+    } catch (error) {
+      console.error("Error creating position:", error);
+      res.status(500).send("Error creating position");
+    }
+  }
 
-    const logDetails = await AppDataSource.getRepository(
-      AttendanceLogEntity
-    ).find({
-      where: condition,
-      order: {
-        date: "DESC",
-      },
-
-      take: perPage,
-      skip: perPage * (page - 1),
-    });
-    res.render("profile", {
-      data: employeeDetails,
-      log: logDetails,
-      attendance: attendance,
-    });
+  static async deletePosition(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const positionRepository = AppDataSource.getRepository(PositionEntity);
+      const position = await positionRepository.findOne({
+        where: { id },
+      });
+      await positionRepository.remove(position);
+      res.redirect("/position");
+    } catch (error) {
+      console.error("Error deleting position:", error);
+      res.status(500).send("Employee has been assigned to this position");
+    }
   }
 
   static async updateUser(req: Request, res: Response) {
