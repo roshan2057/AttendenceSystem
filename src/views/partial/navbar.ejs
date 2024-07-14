@@ -16,18 +16,25 @@
 </head>
 
 <body>
-  <nav class="bg-blue-500 p-4 flex items-center justify-between absolute min-w-full">
+  <nav class="bg-blue-500 p-4 flex items-center justify-between absolute min-w-full z-50">
     <div>
-      <h1 class="text-white text-xl font-semibold">EverestWalk Groups</h1>
+      <h1 class="text-white text-xl font-semibold">Everestwalk Groups</h1>
     </div>
     <div>
       <span class="text-white">RFID Attendance System</span>
     </div>
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-4 cursor-pointer">
       <a class="text-white" href="/logout">Logout</a>
     </div>
 
   </nav>
+
+  <% if (typeof error !== 'undefined' && error !== null) { %>
+    <div class="bg-red-500 top-24 right-10 absolute p-4 rounded-lg text-white">
+      <%= error %>
+    </div>
+  <% } %>
+  
 
 
 

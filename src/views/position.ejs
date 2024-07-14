@@ -13,7 +13,7 @@
     </div>
     <div>
         <h1>List of Position</h1>
-        <table class="min-w-full">
+        <table class="min-w-full border-2">
             <thead class="bg-gray-200 border-b">
             <tr>
                 <th scope="col"
@@ -28,7 +28,7 @@
                 <tr>
                     <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><%= index+1 %></td>
                     <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><%= p.position %></td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><a href="/delete/position/<%= p.id %>">Delete</a></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap"><a href="/delete/position/<%= p.id %>" class="bg-gray-700 px-3 py-0.5 text-white rounded-lg">Delete</a></td>
                 </tr>
                 <% }) %>
             

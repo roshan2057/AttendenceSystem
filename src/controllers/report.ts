@@ -3,26 +3,33 @@ import * as ExcelJS from "exceljs"; // Import exceljs
 import { AppDataSource } from "../data-source";
 import { UserEntity } from "../entity/User.entity";
 import { TimeCalculate } from "../helpers/time";
+import { Not } from "typeorm";
 
 export class Report {
   static async renderReport(req, res) {
     let startDate = ``;
     let endDate = ``;
-    if (req.query.fromdate && req.query.todate) {
+    let totalDays;
+    if (req.query.fromdate && req.query.todate && req.query.totalDays) {
       startDate = req.query.fromdate;
       endDate = req.query.todate;
+      totalDays = Number(req.query.totalDays);
     } else {
       startDate = await TimeCalculate.getDate();
       endDate = await TimeCalculate.getDate();
+      totalDays = 22;
     }
     try {
       const employees = await AppDataSource.getRepository(UserEntity).find({
         relations: ["log"],
+        where: {
+          role: Not("admin"),
+        },
       });
 
       const dates = getAllDates(startDate, endDate);
 
-      const headers = ["Name", ...dates];
+      const headers = ["Name", ...dates, "Working Days","Work Form Office","Work From Home","Absent Days","Present Days"];
 
       const rows = employees.map((employee) => {
         const attendanceData = {};
@@ -37,8 +44,16 @@ export class Report {
           }
         });
 
+        const WFHCount = dates.reduce((count, date) => {
+          return attendanceData[date] === 'WFH' ? count + 1 : count;
+      }, 0);
+
+      const WFOCount = dates.reduce((count, date) => {
+        return attendanceData[date] === 'WFO' ? count + 1 : count;
+    }, 0);
+
         // Return employee data
-        return [employee.name, ...dates.map((date) => attendanceData[date])];
+        return [employee.name, ...dates.map((date) => attendanceData[date]),totalDays,WFOCount,WFHCount,,totalDays-(WFHCount+WFOCount),WFHCount+WFOCount ];
       });
 
       // Render the view with headers and rows data
@@ -64,6 +79,9 @@ export class Report {
     // Fetch all users with their attendance logs
     const employees = await AppDataSource.getRepository(UserEntity).find({
       relations: ["log"],
+      where: {
+        role: Not("admin"),
+      },
     });
 
     // Function to fetch all dates between startDate and endDate
